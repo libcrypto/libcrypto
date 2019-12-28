@@ -1,0 +1,64 @@
+# https://raw.githubusercontent.com/it-gro/hugo-theme-w3css-basic/master/exampleSite/config.toml
+baseURL = "http://libcrypto.so/" 
+languageCode = "en-us"
+title = "LeChuck's Notes"
+theme = "hello-friend-ng"
+
+PygmentsCodeFences = true
+PygmentsStyle = "monokai"
+
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[params]
+  dateform        = "Jan 2, 2006"
+  dateformShort   = "Jan 2"
+  dateformNum     = "02-01-2006"
+  dateformNumTime = "02-01-2006 15:04 -0700"
+  
+  homeSubtitle = "When shells are not enough"
+  # Metadata mostly used in document's head
+  description = "Trials to understand"
+  keywords = "blog, sysadmin, infosec, security, linux"
+  images = [""]
+
+  # Directory name of your blog content (default is `content/posts`)
+  contentTypeName = "posts"
+  # Default theme "light" or "dark"
+  defaultTheme = "dark"
+
+  #Social icons
+  [[params.social]]
+    name = "github"
+    url = "https://github.com/KrE80r"
+
+  
+[languages]
+  [languages.en]
+    title = "LeChuck's Notes"
+    subtitle = ""
+    keywords = ""
+    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
+    readOtherPosts = "Read other posts"
+ 
+  [languages.en.params.logo]
+    logoText = "$ cat /root/proof.txt"
+    logoHomeLink = "/"
+    # or
+    #
+    # path = "/img/your-example-logo.svg"
+    # alt = "Your example logo alt text"
+ 
+ 
+# And you can even create generic menu
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name       = "About"
+    url        = "about"
+  [[menu.main]]
+    identifier = "blog"
+    name       = "Blog"
+    url        = "/posts/"
+

@@ -1,0 +1,22 @@
+name: Push to GitHub Pages on push to master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+
+      - name: Deploy the site
+        uses: benmatselby/hugo-deploy-gh-pages@master
+        env:
+          HUGO_VERSION: 0.57.2
+          TARGET_REPO: libcrypto/libcrypto.github.io
+          TOKEN: ${{ secrets. Deploy_Token }}
+          HUGO_ARGS: ''
+          CNAME: libcrypto.so
