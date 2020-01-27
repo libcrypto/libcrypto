@@ -14,7 +14,9 @@ Been interested for a while now in bug bounty programs. But going through the im
 And while there are some publicly available work flows from some amazing people. Like [capt-meelo](https://github.com/capt-meelo/LazyRecon/blob/master/workflow.png), and [NahamSec](https://docs.google.com/presentation/d/1xgvEScGZ_ukNY0rmfKz1JN0sn-CgZY_rTp2B_SZvijk/edit#slide=id.g4052c4692d_0_264). I thought I need to build my own.
 
 Yeah, I can hear some thinking *"Not again, another work flow and another recon automation tool"*
-,and, I immediately remembered the infamous XKCD standards post [<img src="https://imgs.xkcd.com/comics/standards.png" style="width:30%;">](https://imgs.xkcd.com/comics/standards.png)
+,and, I immediately remembered the infamous XKCD standards post <p align="center">
+[<img src="https://imgs.xkcd.com/comics/standards.png" style="width:30%;">](https://imgs.xkcd.com/comics/standards.png)
+</p>
 
 But, I want to go through more than this actually. I don't want to hit you in the face with a tool or a diagram. **I want to walk you and me through the thought process.** I want to study existing tools and try to make something better. Sounds good?
 
@@ -41,7 +43,7 @@ On a high level, a work flow should be:
 I think these are good starting points. Thinking the tooling or scripts through, I the below sounds the best approach IMHO:
 
   - Chaining bash aliases or functions. They have to be well commented, with predictable outputted file names
-  - Usage of `parallel` command when possible for efficiency
+  - Maybe usage of `parallel` command when possible for efficiency
   - Outputs in parsable `.txt` format, whenever possible
 
 ---
@@ -88,8 +90,35 @@ A workflow is your routine, your thought process or mind map, a reference to go 
 
 Now I will go try to design my workflow. Will update this post when am done.
 
+---
+
+After some research and lots of distractions (work +life) I came up with this workflow
+<p align="center">
+  <a href="/images/bugbounty_wokflow.png">
+    <img border="0" alt="workflow" src="/images/bugbounty_wokflow.png" width="80%" height="80%">
+  </a>
+</p>
 
 
+This workflow is an outcome of studying the awesome work of [0xpatrik](https://0xpatrik.com/subdomain-enumeration-2019/),[phspade](https://github.com/phspade/Automated-Scanner) and diving into the amazing script (Chomp-Scan) by [SolomonSklash](https://github.com/SolomonSklash/chomp-scan).
 
 
+You'll notice the following in the shared workflow:
 
+  - Parallelization of independent actions. That, of course, might increase CPU/memory usage in some situations.
+  - I tried to illustrate what each box is actually trying to do. Instead of a diagram full of tools names.
+  - There are still some missing poking points, like POST/GET parameters for example.   
+
+
+Now, to explain some of the design decisions:
+
+  - The DNS routine at the beginning might seem awkward, but in my testing, it provided balance between efficiency and thoroughness.
+    - The usage of `massdns` for a second time after `goaltdns` to ensure the permutations of subdomains are actualy resolvable. Kudos to 0xpatrik on that.
+    - In my testing I came across occasions where private/internal IPs were reported back. Those IPs need to be filtered out of the results or at least saved in a separate output file. 
+  - `masscan` is the initial port scanner used as it is way faster than `nmap`.
+    - `nmap` will be used on the ports discovered by `masscan` to check on protocols, type of service running, and discover versions.
+
+As I mentioned, I find the work put into [chomp-scan](https://github.com/SolomonSklash/chomp-scan) is impressive. So, I think I might use it as a starting point. Yet, I think it needs some work. And, I think I might be able contribute that to the project, open source FTW.
+
+On that note, I will end this blog post. And, will start working on modifications of `chomp-scan`.
+If you have any comments or additions to the suggest workflow I will assume you know how to contact me ;).
